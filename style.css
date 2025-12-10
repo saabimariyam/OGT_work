@@ -19,7 +19,7 @@ body {
   left: 0;
   width: 100%;
   background: #fff;
-  z-index: 9999;
+  z-index: 999;
   padding: 15px 60px;
   display: flex;
   justify-content: space-between;
@@ -295,7 +295,6 @@ footer .social a:hover {
   opacity: 0.7;
 }
 
-
 /* shop header */
 .shop-header {
   text-align: center;
@@ -314,7 +313,6 @@ footer .social a:hover {
   color: #555;
   margin-bottom: 18px;
 }
-
 
 /* filters */
 .filters {
@@ -337,4 +335,239 @@ footer .social a:hover {
 .filter:hover {
   background: #111;
   color: #fff;
+}
+
+/* humburger menu (hidden in desktop) */
+.menu-icon {
+  display: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: #000;
+}
+
+.menu-icon i {
+  transition: 0.3s ease;
+}
+
+/* rotate icon when active */
+.menu-icon.active i {
+  transform: rotate(180deg);
+}
+
+
+/* Responsive Design */
+@media screen and (max-width: 900px) {
+
+  /* humburger menu */
+  .menu-icon {
+  display: block; 
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  font-size: 30px;
+  cursor: pointer;
+  color: #000;
+  z-index: 999999 !important;
+}
+
+  /* logo and navbar */
+  .navbar {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 15px 25px;
+    z-index: 10;
+  }
+
+  .navbar .logo {
+    font-size: 40px;
+  }
+
+  .navSec {
+    display: none;
+    flex-direction: column;
+    background: #fff;
+    position: absolute; 
+    top: 65px; 
+    right: 20px; 
+    width: 180px;
+    text-align: left;
+    padding: 12px 0;
+    border-radius: 12px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 5;
+  }
+
+  .navSec a {
+    padding: 12px 0;
+    font-size: 17px;
+    color: #000;
+    width: 100%;
+  }
+
+  /* Show menu when active */
+  .navSec.showMenu {
+    display: flex;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* first section */
+  .first-section {
+    flex-direction: column; 
+    text-align: center;
+    padding: 40px;
+    margin-top: 100px; 
+  }
+
+  .firstSec-text {
+    margin-bottom: 20px;
+  }
+
+  .firstSec-image img {
+    width: 100%; 
+    height: auto; 
+    max-width: 320px; 
+    margin: 0 auto; 
+    display: block;
+  }
+
+  .firstSec-text h1 {
+    font-size: 35px;
+  }
+
+  .firstSec-text p {
+    font-size: 16px;
+  }
+
+  /* collections */
+  .collection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+  }
+
+  .collection-card {
+    width: 100%;
+    text-align: center;
+  }
+
+  .collection-card img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+  }
+
+  /* new arrivals */
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .product {
+    width: 100%;
+  }
+
+  .product img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* footer */
+  .footer {
+    padding: 40px 8%;
+  }
+
+  .footer-container {
+    gap: 20px;
+    text-align: left;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+  }
+
+  .footer .about {
+    text-align: center;
+    flex-basis: 100%;
+    max-width: 100%;
+  }
+
+  .footer .about h1 {
+    font-size: 28px;
+  }
+
+  .footer .about p {
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 0 10px;
+  }
+
+  body > footer > div.footer-container > div:nth-child(2) {
+    text-align: center;
+  }
+  body > footer > div.footer-container > div:nth-child(3) {
+    text-align: center;
+  }
+  body > footer > div.footer-container > div:nth-child(4) {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .social {
+    text-align: center;
+  }
+
+  /* shop header */
+  .shop-header {
+    padding: 25px 15px;
+    margin-top: 150px;
+  }
+
+  .shop-header h1 {
+    font-size: 26px;
+    margin-bottom: 8px;
+  }
+
+  .shop-header p {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+
+  /* filters */
+  .filters {
+    flex-wrap: wrap; 
+    gap: 8px;
+  }
+
+  .filter {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+
+  /* grid support on mobile also */
+  @media (max-width: 600px) {
+    .collection-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
 }
