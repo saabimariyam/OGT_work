@@ -1,3 +1,6 @@
+<?php 
+include ("admin_area/connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +10,9 @@
     <title>ÉLORÉ</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="stylepage.css">
+    <link rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -20,12 +24,12 @@
 
     <!-- logo and navbar -->
     <header class="navbar" id="home">
-        <a href="index.html" class="logo">ÉLORÉ</a>
+        <a href="index.php" class="logo">ÉLORÉ</a>
 
         <nav class="navSec" id="navMenu">
             <a class="active" href="#home">Home</a>
-            <a href="shop.html">Shop</a>
-            <a href="#">Wishlist<sup>0</sup></a>
+            <a href="shop.php">Shop</a>
+            <a href="#">Wishlist</a>
             <a href="#">Cart<sup>0</sup></a>
         </nav>
     </header>
@@ -35,7 +39,7 @@
         <div class="firstSec-text">
             <h1>Discover the Elegance of ÉLORÉ</h1>
             <p>Minimal. Premium. Designed for your timeless style.</p>
-            <a href="shop.html"><button class="shop-btn">Shop Now</button></a>
+            <a href="shop.php"><button class="shop-btn">Shop Now</button></a>
         </div>
 
         <div class="firstSec-image">
@@ -72,33 +76,25 @@
 
 
     <!-- new arrivals -->
-    <section class="new">
+    <section class="new"> 
         <h2>New Arrivals</h2>
         <div class="product-grid">
-            <div class="product">
-                <img src="images\men1.jpg" alt="">
-                <p>Men’s Cozy Knit Zip Hoodie & Wide-Leg Pants Outfit</p>
-                <span>₹2899</span>
-            </div>
+            <?php 
+            $new = mysqli_query($conn, "SELECT * FROM new_arrivals ORDER BY product_id DESC LIMIT 4");
 
-            <div class="product">
-                <img src="images\women1.jpg" alt="">
-                <p>Women’s Chunky Knit Cardigan & Deep-Wash Wide-Leg Denim Look</p>
-                <span>₹2699</span>
-            </div>
 
-            <div class="product">
-                <img src="images\men2.jpg" alt="">
-                <p>Men’s Oversized Graphic Hoodie & Dark Wide-Leg Denim Set</p>
-                <span>₹2759</span>
+            while ($n = mysqli_fetch_assoc($new)){
+                echo "
+                <div class='product'>
+                <img src='admin_area/uploads/{$n['product_image1']}'>
+                <p>{$n['product_name']}</p>
+                <span>₹{$n['product_price']}</span>
             </div>
-
-            <div class="product">
-                <img src="images\women2.jpg" alt="">
-                <p>Women’s Minimal Zip-Up Knit Jacket & Wide-Leg Denim Outfit</p>
-                <span>₹2989</span>
-            </div>
+                ";
+            }
+            ?>
         </div>
+
     </section>
 
 
@@ -116,8 +112,8 @@
             <div class="footer-col">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="shop.php">Shop</a></li>
                     <li><a href="#">Cart</a></li>
                     <li><a href="#">Wishlist</a></li>
                 </ul>
@@ -133,11 +129,11 @@
 
             <div class="footer-col">
                 <h3>Contact</h3>
-                <p><strong>Address:</strong> Kasaragod, Kerala</p>
-                <p><strong>Phone:</strong>
+                <p><strong>Address :</strong> Kasaragod, Kerala</p>
+                <p><strong>Phone :</strong>
                     <a href="tel:(203)555-5555"> +91 8891240283</a>
                 </p>
-                <p><strong>Email:</strong>
+                <p><strong>Email :</strong>
                     <a href="mailto:hello@gmail.com"> eloreclothes@gmail.com</a>
                 </p>
             </div>

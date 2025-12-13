@@ -1,3 +1,6 @@
+<?php
+include("admin_area/connect.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +10,7 @@
     <title>ÉLORÉ — Shop</title>
 
     <!-- css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="stylepage.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -20,12 +23,12 @@
 
     <!-- logo and navbar -->
     <header class="navbar">
-        <a href="index.html" class="logo">ÉLORÉ</a>
+        <a href="index.php" class="logo">ÉLORÉ</a>
 
         <nav class="navSec" id="navMenu">
-            <a href="index.html">Home</a>
-            <a class="active" href="shop.html">Shop</a>
-            <a href="#">Wishlist<sup>0</sup></a>
+            <a href="index.php">Home</a>
+            <a class="active" href="shop.php">Shop</a>
+            <a href="#">Wishlist</a>
             <a href="#">Cart<sup>0</sup></a>
         </nav>
     </header>
@@ -35,44 +38,40 @@
         <h1>Shop All Products</h1>
         <p>Soft, minimal and aesthetic fashion curated just for you.</p>
         <div class="filters">
-            <button class="filter active">All</button>
-            <button class="filter">Women</button>
-            <button class="filter">Men</button>
+            <button class="filter active" data-filter="all">All</button>
+            <button class="filter" data-filter="Men">Men</button>
+            <button class="filter" data-filter="Women">Women</button>
         </div>
+
     </section>
 
     <!-- products -->
     <section class="shop-products">
         <div class="product-grid">
 
-            <div class="product">
-                <img src="images/women4.jpg">
-                <p>Women’s Oversized “Wednesday” Hoodie & Faded Wide-Leg Denim Set</p>
-                <span>₹989</span>
-            </div>
+            <?php
+            $products = mysqli_query($conn, "
+            SELECT products.*, categories.category_title 
+            FROM products
+            JOIN categories 
+            ON products.product_category = categories.category_id
+        ");
 
-            <div class="product">
-                <img src="images/men3.jpg">
-                <p>Men’s Vintage Checkered Hoodie & Washed Wide-Leg Denim Set</p>
-                <span>₹3124</span>
+            while ($p = mysqli_fetch_assoc($products)) {
+                echo "
+            <div class='product' data-category='{$p['category_title']}'>
+                <img src='admin_area/uploads/{$p['product_image1']}'>
+                <p>{$p['product_name']}</p>
+                <span>₹{$p['product_price']}</span>
             </div>
-
-            <div class="product">
-                <img src="images/men4.jpg">
-                <p>Men’s Retro Graphic Raglan Tee & Classic Wide-Leg Jeans Look</p>
-                <span>₹2568</span>
-            </div>
-
-            <div class="product">
-                <img src="images/women3.jpg">
-                <p>Women’s Soft Ribbed Zip-Up Knit & Deep-Wash Wide Denim Outfit</p>
-                <span>₹2459</span>
-            </div>
+            ";
+            }
+            ?>
 
         </div>
-
-
     </section>
+
+
     <!-- footer -->
     <footer class="footer">
 
@@ -105,11 +104,11 @@
 
             <div class="footer-col">
                 <h3>Contact</h3>
-                <p><strong>Address:</strong> Kasaragod, Kerala</p>
-                <p><strong>Phone:</strong>
+                <p><strong>Address :</strong> Kasaragod, Kerala</p>
+                <p><strong>Phone :</strong>
                     <a href=""> +91 8891240283</a>
                 </p>
-                <p><strong>Email:</strong>
+                <p><strong>Email :</strong>
                     <a href="#"> eloreclothes@gmail.com</a>
                 </p>
             </div>
@@ -127,8 +126,35 @@
 
     </footer>
 
+    <script>
+            const filters = document.querySelectorAll(".filter");
+const products = document.querySelectorAll(".product");
+
+filters.forEach(btn => {
+    btn.addEventListener("click", () => {
+
+        // remove active from all
+        filters.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+
+        const filterValue = btn.dataset.filter;
+
+        products.forEach(product => {
+            const category = product.dataset.category;
+
+            if (filterValue === "all" || category === filterValue) {
+                product.style.display = "block";
+            } else {
+                product.style.display = "none";
+            }
+        });
+    });
+});
+
+    </script>
+
     <script src="script.js"></script>
-    
+
 </body>
 
 </html>

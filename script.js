@@ -18,3 +18,4 @@ menuBtn.addEventListener("click", () => {
             menuIcon.classList.add("fa-bars");
         }
     });
+
